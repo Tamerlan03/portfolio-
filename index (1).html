@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тамерлан Жамбатыров — Product Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0c1620;
+  --paper:#eef1ee;
+  --line-blue:#2e6f8e;
+  --signal:#c8ff4d;
+  --signal-dim:#8fb83a;
+  --panel:#101d29;
+  --panel-2:#162635;
+  --grey:#7e8e97;
+  --rule:#2a3947;
+  --font-display:'Fraunces', serif;
+  --font-body:'IBM Plex Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--font-body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--signal); color:var(--ink);}
+
+a{color:inherit;}
+.wrap{max-width:1100px; margin:0 auto; padding:0 28px;}
+
+/* ---------- topology background (signature) ---------- */
+.topology{
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.55;
+}
+.topology svg{width:100%; height:100%;}
+.topo-line{
+  stroke:var(--line-blue); stroke-width:1; fill:none; opacity:0.35;
+  stroke-dasharray:4 6;
+}
+.topo-node{fill:var(--line-blue); opacity:0.5;}
+.topo-node.pulse{fill:var(--signal);}
+
+/* ---------- header ---------- */
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(12,22,32,0.86); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+nav{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+.logo{font-family:var(--font-mono); font-size:14px; letter-spacing:0.04em; color:var(--signal);}
+.navlinks{display:flex; gap:28px; font-family:var(--font-mono); font-size:13px; color:var(--grey);}
+.navlinks a{text-decoration:none; transition:color .2s;}
+.navlinks a:hover{color:var(--signal);}
+
+/* ---------- hero ---------- */
+.hero{position:relative; z-index:1; padding:120px 0 90px;}
+.eyebrow{
+  font-family:var(--font-mono); font-size:12.5px; color:var(--signal);
+  letter-spacing:0.12em; text-transform:uppercase; margin-bottom:22px;
+  display:flex; align-items:center; gap:10px;
+}
+.eyebrow::before{content:''; width:18px; height:1px; background:var(--signal); display:inline-block;}
+h1.title{
+  font-family:var(--font-display); font-weight:500; font-size:clamp(40px,6.2vw,76px);
+  line-height:1.02; letter-spacing:-0.01em; max-width:880px;
+}
+h1.title em{font-style:italic; font-weight:300; color:var(--grey);}
+.role-line{
+  font-family:var(--font-mono); font-size:15px; color:var(--line-blue); margin-top:22px;
+}
+.lede{
+  max-width:620px; font-size:18px; color:#c4ccd1; margin-top:26px;
+}
+.hero-actions{display:flex; gap:14px; margin-top:42px; flex-wrap:wrap;}
+.btn{
+  font-family:var(--font-mono); font-size:13px; padding:13px 22px;
+  border:1px solid var(--rule); text-decoration:none; transition:all .2s;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary{background:var(--signal); color:var(--ink); border-color:var(--signal); font-weight:500;}
+.btn-primary:hover{background:#dbff85;}
+.btn-ghost{color:var(--paper); border-color:var(--rule);}
+.btn-ghost:hover{border-color:var(--line-blue); color:var(--signal);}
+
+/* ---------- pillars ---------- */
+.pillars{
+  position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--rule); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  margin-top:60px;
+}
+.pillar{background:var(--ink); padding:30px 28px;}
+.pillar .num{font-family:var(--font-mono); font-size:12px; color:var(--signal-dim);}
+.pillar h3{font-family:var(--font-display); font-weight:500; font-size:20px; margin:10px 0 8px;}
+.pillar p{font-size:14.5px; color:var(--grey);}
+
+/* ---------- section shell ---------- */
+section{position:relative; z-index:1; padding:90px 0;}
+.section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:46px; gap:20px; flex-wrap:wrap;}
+.section-tag{font-family:var(--font-mono); font-size:12px; color:var(--signal); letter-spacing:0.1em; text-transform:uppercase;}
+h2.section-title{font-family:var(--font-display); font-weight:500; font-size:clamp(28px,3.4vw,42px); margin-top:8px;}
+
+/* ---------- about ---------- */
+.about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:start;}
+.about-text p{color:#c4ccd1; font-size:16.5px; margin-bottom:18px; max-width:520px;}
+.about-text p:last-child{margin-bottom:0;}
+.skillset{display:flex; flex-direction:column; gap:26px;}
+.skill-group h4{
+  font-family:var(--font-mono); font-size:12px; color:var(--line-blue);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;
+  border-bottom:1px solid var(--rule); padding-bottom:8px;
+}
+.skill-tags{display:flex; flex-wrap:wrap; gap:8px;}
+.skill-tags span{
+  font-family:var(--font-mono); font-size:12.5px; color:var(--paper);
+  background:var(--panel); border:1px solid var(--rule); padding:6px 11px;
+}
+
+/* ---------- cases ---------- */
+.case{
+  background:var(--panel); border:1px solid var(--rule); margin-bottom:28px;
+  overflow:hidden;
+}
+.case-head{
+  padding:34px 36px; display:flex; justify-content:space-between; align-items:flex-start;
+  cursor:pointer; gap:24px; flex-wrap:wrap;
+}
+.case-head:hover{background:var(--panel-2);}
+.case-id{font-family:var(--font-mono); font-size:12px; color:var(--signal-dim); margin-bottom:10px;}
+.case-title{font-family:var(--font-display); font-weight:500; font-size:26px; max-width:560px;}
+.case-sub{color:var(--grey); font-size:14.5px; margin-top:8px; max-width:560px;}
+.case-tags{display:flex; gap:8px; flex-wrap:wrap; align-self:flex-start;}
+.case-tags span{font-family:var(--font-mono); font-size:11px; color:var(--line-blue); border:1px solid var(--rule); padding:5px 9px; white-space:nowrap;}
+.case-toggle{font-family:var(--font-mono); font-size:20px; color:var(--signal); min-width:20px; text-align:right;}
+
+.case-body{
+  max-height:0; overflow:hidden; transition:max-height .4s ease;
+  border-top:1px solid var(--rule);
+}
+.case-body.open{max-height:4000px;}
+.case-body-inner{padding:36px;}
+.cb-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:34px; margin-bottom:34px;}
+.cb-block h5{
+  font-family:var(--font-mono); font-size:11.5px; color:var(--signal);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;
+}
+.cb-block p, .cb-block li{font-size:14.5px; color:#c4ccd1;}
+.cb-block ul{padding-left:18px;}
+.cb-block li{margin-bottom:6px;}
+.story{
+  font-family:var(--font-mono); font-size:13.5px; color:var(--paper);
+  background:var(--ink); border-left:2px solid var(--signal-dim); padding:12px 16px; margin-bottom:10px;
+}
+.flow{
+  font-family:var(--font-mono); font-size:13px; color:var(--line-blue);
+  background:var(--ink); border:1px dashed var(--rule); padding:18px 20px;
+  white-space:pre-wrap; line-height:1.9;
+}
+.code{
+  font-family:var(--font-mono); font-size:13px; color:#a9e88f;
+  background:#0a131c; border:1px solid var(--rule); padding:18px 20px;
+  white-space:pre; overflow-x:auto; line-height:1.8;
+}
+.metric-table{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:6px;}
+.metric-table th{font-family:var(--font-mono); text-align:left; color:var(--signal); font-size:11.5px; text-transform:uppercase; padding:8px 10px; border-bottom:1px solid var(--rule);}
+.metric-table td{padding:9px 10px; border-bottom:1px solid var(--rule); color:#c4ccd1;}
+.result-box{
+  margin-top:6px; padding:16px 20px; background:var(--ink); border:1px solid var(--signal-dim);
+  font-size:14px; color:var(--paper);
+}
+.result-box b{color:var(--signal);}
+
+/* ---------- NDA ---------- */
+.nda{
+  background:var(--panel-2); border:1px solid var(--rule); padding:36px 40px;
+  font-size:15px; color:#c4ccd1; position:relative;
+}
+.nda::before{content:'⚠'; display:none;}
+.nda b{color:var(--signal);}
+
+/* ---------- contact ---------- */
+.contact-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:30px;}
+.contact-big{font-family:var(--font-display); font-size:clamp(30px,4.4vw,52px); font-weight:500; max-width:600px;}
+.contact-list{font-family:var(--font-mono); font-size:14.5px; display:flex; flex-direction:column; gap:10px; text-align:right;}
+.contact-list a{text-decoration:none; border-bottom:1px solid var(--rule); padding-bottom:1px;}
+.contact-list a:hover{color:var(--signal); border-color:var(--signal);}
+
+footer{
+  border-top:1px solid var(--rule); padding:30px 0; font-family:var(--font-mono);
+  font-size:12px; color:var(--grey); position:relative; z-index:1;
+}
+footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+@media (max-width:760px){
+  .pillars{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .cb-grid{grid-template-columns:1fr;}
+  .contact-list{text-align:left;}
+  .navlinks{display:none;}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .case-body{transition:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="topology" id="topology"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">ТЖ // PRODUCT ANALYST</div>
+    <div class="navlinks">
+      <a href="#about">Обо мне</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#contact">Контакты</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Открыт к предложениям в digital-продуктах</div>
+    <h1 class="title">Тамерлан Жамбатыров<br><em>Product Analyst</em></h1>
+    <div class="role-line">Мобильное приложение · CRM · Web · Стриминг-сервис</div>
+    <p class="lede">Перевожу бизнес-задачи в требования, пользовательские сценарии, интеграции и измеримые продуктовые решения — на стыке продукта, данных и разработки.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#cases">Смотреть кейсы →</a>
+      <a class="btn btn-ghost" href="#contact">Связаться</a>
+    </div>
+  </div>
+
+  <div class="pillars wrap" style="padding-left:0; padding-right:0;">
+    <div class="pillar">
+      <div class="num">01</div>
+      <h3>От бизнес-задачи к беклогу</h3>
+      <p>Превращаю нечеткие бизнес-запросы в структурированные требования, user story и acceptance criteria.</p>
+    </div>
+    <div class="pillar">
+      <div class="num">02</div>
+      <h3>От пользовательского сценария к API</h3>
+      <p>Понимаю, как сценарии digital-продукта связаны с backend, CRM, биллингом и аналитическими системами.</p>
+    </div>
+    <div class="pillar">
+      <div class="num">03</div>
+      <h3>От данных к продуктовым решениям</h3>
+      <p>BI/Data-опыт помогает проектировать измеримые изменения продукта с понятными метриками и отчетностью.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">Профиль</div>
+        <h2 class="section-title">Обо мне</h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>У меня 3+ года опыта в аналитике данных, BI и бизнес-аналитике. Работал с telecom, B2B/B2G-направлениями, CRM, KPI, управленческой отчетностью и продуктовой аналитикой.</p>
+        <p>Сейчас развиваюсь в сторону product-аналитики для digital-продуктов: мобильное приложение, CRM, web и стриминг-сервисы — требования, user stories, acceptance criteria, метрики, события и контроль реализации.</p>
+        <p>Ниже — три кейса, показывающие, как я работаю с задачей от формулировки бизнес-проблемы до критериев приемки и QA-сценариев.</p>
+      </div>
+      <div class="skillset">
+        <div class="skill-group">
+          <h4>Business analysis</h4>
+          <div class="skill-tags">
+            <span>Requirements gathering</span><span>User Story</span><span>Acceptance Criteria</span><span>Functional requirements</span><span>Process description</span><span>Documentation</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>System analysis</h4>
+          <div class="skill-tags">
+            <span>REST API basics</span><span>Integration logic</span><span>Data flows</span><span>SQL</span><span>Swagger / Postman</span><span>System interaction</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Product & data</h4>
+          <div class="skill-tags">
+            <span>KPI</span><span>Funnels</span><span>Retention / Churn</span><span>ARPU</span><span>Dashboards</span><span>Event tracking</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Tools</h4>
+          <div class="skill-tags">
+            <span>SQL</span><span>Python</span><span>Qlik Sense</span><span>Power BI</span><span>Excel</span><span>Jira / Confluence</span><span>Postman / Swagger</span><span>Draw.io / Miro</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">Портфолио</div>
+        <h2 class="section-title">Кейсы</h2>
+      </div>
+      <p style="color:var(--grey); font-size:14.5px; max-width:360px;">Кликните по карточке, чтобы развернуть требования, сценарии, API и QA-чеклист.</p>
+    </div>
+
+    <!-- CASE 1 -->
+    <div class="case">
+      <div class="case-head" onclick="toggleCase(this)">
+        <div>
+          <div class="case-id">КЕЙС 01 — МОБИЛЬНОЕ ПРИЛОЖЕНИЕ</div>
+          <div class="case-title">Self-service tariff change in mobile app</div>
+          <div class="case-sub">Пользователь меняет тариф в приложении без обращения в поддержку.</div>
+        </div>
+        <div class="case-tags">
+          <span>Требования</span><span>User Flow</span><span>API</span><span>QA</span>
+        </div>
+        <div class="case-toggle">+</div>
+      </div>
+      <div class="case-body">
+        <div class="case-body-inner">
+
+          <div class="cb-grid">
+            <div class="cb-block">
+              <h5>Проблема</h5>
+              <p>Смена тарифа возможна только через звонок в call-центр, что создает нагрузку на поддержку и увеличивает время операции для абонента.</p>
+            </div>
+            <div class="cb-block">
+              <h5>Бизнес-цель</h5>
+              <p>Снизить нагрузку на call center и увеличить долю самостоятельных операций в мобильном приложении за счет запуска сценария смены тарифа.</p>
+            </div>
+          </div>
+
+          <div class="cb-block" style="margin-bottom:34px;">
+            <h5>User stories</h5>
+            <div class="story">Как абонент мобильной связи, я хочу видеть доступные тарифы и менять текущий тариф в приложении, чтобы управлять услугами без обращения в поддержку.</div>
+          </div>
+
+          <div class="cb-grid">
+            <div class="cb-block" style="grid-column:1/-1;">
+              <h5>Acceptance criteria</h5>
+              <ul>
+                <li>Пользователь видит только тарифы, доступные для его типа номера.</li>
+                <li>Если на балансе недостаточно средств, система показывает понятное сообщение.</li>
+                <li>При успешной смене тарифа пользователь получает push/SMS-уведомление.</li>
+                <li>Если биллинг недоступен, операция не проводится, пользователь видит техническое сообщение.</li>
+                <li>Все действия логируются для последующей аналитики.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cb-grid">
+            <div class="cb-block">
+              <h5>Сценарий пользователя</h5>
+              <div class="flow">Главная
+  → Мой тариф
+    → Сменить тариф
+      → Список тарифов
+        → Детали тарифа
+          → Подтверждение
+            → Результат</div>
+            </div>
+            <div class="cb-block">
+              <h5>Схема интеграций</h5>
+              <div class="flow">Mobile App → API Gateway → Product Catalog
+Mobile App → API Gateway → Billing System
+Billing System → Notification Service
+Billing System → Event Tracking / DWH</div>
+            </div>
+          </div>
+
+          <div class="cb-block" style="margin-bottom:34px;">
+            <h5>API endpoints</h5>
+            <div class="code">GET   /api/v1/users/{userId}/available-tariffs
+POST  /api/v1/users/{userId}/tariff-change
+GET   /api/v1/tariff-change/{requestId}/status</div>
+          </div>
+
+          <div class="cb-grid">
+            <div class="cb-block" style="grid-column:1/-1;">
+              <h5>QA / тест-сценарии</h5>
+              <ul>
+                <li>Успешная смена тарифа</li>
+                <li>Недостаточно средств на балансе</li>
+                <li>Тариф недоступен для типа номера</li>
+                <li>Повторная заявка на смену тарифа</li>
+                <li>Ошибка на стороне биллинга</li>
+                <li>Пользователь без авторизации</li>
+                <li>Задержка ответа от внешней системы</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="result-box"><b>Ожидаемый эффект:</b> снижение количества обращений в поддержку, ускорение операции смены тарифа, рост доли self-service в приложении.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2 -->
+    <div class="case">
+      <div class="case-head" onclick="toggleCase(this)">
+        <div>
+          <div class="case-id">КЕЙС 02 — ЛОЯЛЬНОСТЬ / ПРОДУКТОВАЯ АНАЛИТИКА</div>
+          <div class="case-title">Loyalty bonus program for mobile subscribers</div>
+          <div class="case-sub">Бонусы за пополнение баланса, оплату услуг и активность в приложении.</div>
+        </div>
+        <div class="case-tags">
+          <span>Метрики</span><span>События</span><span>Acceptance Criteria</span>
+        </div>
+        <div class="case-toggle">+</div>
+      </div>
+      <div class="case-body">
+        <div class="case-body-inner">
+
+          <div class="cb-grid">
+            <div class="cb-block">
+              <h5>Проблема</h5>
+              <p>Низкая частота повторных операций в приложении — пользователи не возвращаются после разовых действий (оплата, пополнение).</p>
+            </div>
+            <div class="cb-block">
+              <h5>Продуктовая цель</h5>
+              <p>Увеличить retention и частоту использования мобильного приложения через бонусную механику.</p>
+            </div>
+          </div>
+
+          <div class="cb-block" style="margin-bottom:34px;">
+            <h5>User stories</h5>
+            <div class="story">Как пользователь, я хочу видеть количество бонусов, чтобы понимать свою выгоду.</div>
+            <div class="story">Как пользователь, я хочу списывать бонусы на услуги связи, чтобы экономить на оплате.</div>
+            <div class="story">Как продуктовая команда, мы хотим видеть аналитику использования бонусов, чтобы оценивать эффективность программы.</div>
+          </div>
+
+          <div class="cb-grid">
+            <div class="cb-block">
+              <h5>Acceptance criteria</h5>
+              <ul>
+                <li>Баланс бонусов отображается в личном кабинете.</li>
+                <li>Пользователь видит историю начислений и списаний.</li>
+                <li>Бонусы нельзя списать на недоступные услуги.</li>
+                <li>При ошибке списания бонусы не должны исчезнуть.</li>
+                <li>Все операции попадают в аналитику.</li>
+              </ul>
+            </div>
+            <div class="cb-block">
+              <h5>Ключевые метрики</h5>
+              <ul>
+                <li>MAU / DAU</li>
+                <li>Conversion to bonus activation</li>
+                <li>Repeat payments</li>
+                <li>Retention 30 / 60 / 90</li>
+                <li>ARPU, churn rate</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cb-block">
+            <h5>События (data events)</h5>
+            <table class="metric-table">
+              <tr><th>Event</th><th>Когда срабатывает</th><th>Основные поля</th></tr>
+              <tr><td>bonus_activated</td><td>пользователь подключил бонусную программу</td><td>user_id, segment, source, timestamp</td></tr>
+              <tr><td>bonus_redeemed</td><td>пользователь списал бонусы</td><td>user_id, amount, service_type</td></tr>
+              <tr><td>bonus_error_shown</td><td>ошибка при операции</td><td>user_id, error_code, step</td></tr>
+            </table>
+          </div>
+
+          <div class="result-box" style="margin-top:24px;"><b>Ожидаемый эффект:</b> рост повторных операций и retention, более точная оценка эффективности бонусной механики на уровне продукта.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3 -->
+    <div class="case">
+      <div class="case-head" onclick="toggleCase(this)">
+        <div>
+          <div class="case-id">КЕЙС 03 — CRM / ПОДДЕРЖКА</div>
+          <div class="case-title">Customer support request flow automation</div>
+          <div class="case-sub">Заявка в приложении → CRM → SLA-обработка → статус для клиента.</div>
+        </div>
+        <div class="case-tags">
+          <span>BPMN</span><span>Интеграция с CRM</span><span>SLA</span>
+        </div>
+        <div class="case-toggle">+</div>
+      </div>
+      <div class="case-body">
+        <div class="case-body-inner">
+
+          <div class="cb-grid">
+            <div class="cb-block">
+              <h5>AS-IS (как сейчас)</h5>
+              <p>Пользователь пишет в чат или звонит, оператор вручную создает обращение, статусы не всегда прозрачны для клиента.</p>
+            </div>
+            <div class="cb-block">
+              <h5>TO-BE (как будет)</h5>
+              <p>Пользователь создает заявку в приложении, система автоматически определяет категорию и передает её в CRM, клиент видит статус в реальном времени.</p>
+            </div>
+          </div>
+
+          <div class="cb-grid">
+            <div class="cb-block">
+              <h5>Процесс</h5>
+              <div class="flow">User submits request
+  → System validates request
+    → CRM creates ticket
+      → Support team processes ticket
+        → Status update sent to user
+          → Ticket closed</div>
+            </div>
+            <div class="cb-block">
+              <h5>Интеграция</h5>
+              <div class="flow">Mobile App → Backend → CRM
+CRM → Notification Service
+CRM → DWH / Reporting</div>
+            </div>
+          </div>
+
+          <div class="cb-grid">
+            <div class="cb-block">
+              <h5>Статусы SLA</h5>
+              <ul>
+                <li>Created</li>
+                <li>In progress</li>
+                <li>Waiting for customer</li>
+                <li>Resolved</li>
+                <li>Closed</li>
+                <li>Rejected</li>
+              </ul>
+            </div>
+            <div class="cb-block">
+              <h5>Acceptance criteria</h5>
+              <ul>
+                <li>Заявка создается только после валидации обязательных полей.</li>
+                <li>Клиент получает номер заявки.</li>
+                <li>Статус заявки обновляется в приложении.</li>
+                <li>Просроченные заявки попадают в отчет по SLA.</li>
+                <li>Заявки доступны для аналитики по категориям и времени обработки.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="result-box"><b>Ожидаемый эффект:</b> сокращение ручных обращений в поддержку, ускорение self-service операций, прозрачность клиентского пути.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="nda">
+      <b>Важное уточнение.</b> Большинство коммерческих проектов выполнялись под NDA, поэтому данное портфолио содержит обезличенные демо-кейсы, основанные на реальной логике аналитической работы: анализ требований, продуктовая логика, интеграции, потоки данных и QA-сценарии. Конфиденциальные данные, названия клиентов и внутренние системы не раскрываются.
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="section-tag">Контакты</div>
+        <div class="contact-big">Открыт к роли Product Analyst в команде мобильного цифрового оператора.</div>
+      </div>
+      <div class="contact-list">
+        <a href="mailto:zhambatyrovtamerlan@gmail.com">zhambatyrovtamerlan@gmail.com</a>
+        <a href="https://t.me/Tamer_99">Telegram: @Tamer_99</a>
+        <a href="https://wa.me/77072390017">WhatsApp: +7 707 239 0017</a>
+        <a href="tel:+77072390017">+7 707 239 0017</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Тамерлан Жамбатыров — Product Analyst</div>
+    <div>Астана, Казахстан — 2026</div>
+  </div>
+</footer>
+
+<script>
+function toggleCase(headEl){
+  const body = headEl.nextElementSibling;
+  const toggle = headEl.querySelector('.case-toggle');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.case-body.open').forEach(el=>{
+    el.classList.remove('open');
+    el.previousElementSibling.querySelector('.case-toggle').textContent = '+';
+  });
+  if(!isOpen){
+    body.classList.add('open');
+    toggle.textContent = '−';
+  }
+}
+
+// background topology diagram — generated network of nodes/edges
+(function(){
+  const container = document.getElementById('topology');
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS,'svg');
+  svg.setAttribute('viewBox','0 0 1200 1600');
+  svg.setAttribute('preserveAspectRatio','xMidYMin slice');
+  container.appendChild(svg);
+
+  const nodes = [];
+  const cols = 6, rows = 8;
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const x = 60 + c*(1080/(cols-1)) + (Math.random()*60-30);
+      const y = 40 + r*(1520/(rows-1)) + (Math.random()*60-30);
+      nodes.push({x,y});
+    }
+  }
+  // edges: connect nearby nodes
+  nodes.forEach((n,i)=>{
+    nodes.forEach((m,j)=>{
+      if(i<j){
+        const d = Math.hypot(n.x-m.x, n.y-m.y);
+        if(d < 220 && Math.random() < 0.18){
+          const line = document.createElementNS(svgNS,'line');
+          line.setAttribute('x1',n.x); line.setAttribute('y1',n.y);
+          line.setAttribute('x2',m.x); line.setAttribute('y2',m.y);
+          line.setAttribute('class','topo-line');
+          svg.appendChild(line);
+        }
+      }
+    });
+  });
+  nodes.forEach((n,i)=>{
+    const circle = document.createElementNS(svgNS,'circle');
+    circle.setAttribute('cx',n.x); circle.setAttribute('cy',n.y);
+    circle.setAttribute('r', Math.random()<0.12 ? 3.2 : 1.8);
+    circle.setAttribute('class', Math.random()<0.12 ? 'topo-node pulse' : 'topo-node');
+    svg.appendChild(circle);
+  });
+})();
+</script>
+
+</body>
+</html>
